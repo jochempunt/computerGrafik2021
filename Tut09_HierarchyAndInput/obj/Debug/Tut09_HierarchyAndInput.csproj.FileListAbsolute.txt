@@ -1,0 +1,9 @@
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\bin\Debug\Tut09_HierarchyAndInput.deps.json
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\bin\Debug\Tut09_HierarchyAndInput.dll
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\bin\Debug\Tut09_HierarchyAndInput.pdb
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.csprojAssemblyReference.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.AssemblyInfoInputs.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.AssemblyInfo.cs
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.csproj.CoreCompileInputs.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.dll
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut09_HierarchyAndInput\obj\Debug\Tut09_HierarchyAndInput.pdb
