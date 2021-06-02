@@ -34,6 +34,8 @@ namespace FuseeApp
 
          private Transform _fingerRightTransform;
 
+         private Transform _fingerBottomTransform;
+
          private float winkel =0;
 
          
@@ -76,23 +78,30 @@ namespace FuseeApp
             {
                 Rotation = new float3(0, 0, 0),
                 Scale = new float3(1, 1, 1),
-                Translation = new float3(2, 1, -1)
+                Translation = new float3(2, 1, 0)
             };
 
              _fingerRightTransform = new Transform
              {
                 Rotation = new float3(0, 0, 0),
                 Scale = new float3(1, 1, 1),
-                Translation = new float3(-2, 1, -1)
+                Translation = new float3(-2, 1, 0)
              };
 
             _fingerUpTransform =   new Transform
             {
                 Rotation = new float3(0, 0, 0),
                 Scale = new float3(1, 1, 1),
-                Translation = new float3(0, 1, 1)
+                Translation = new float3(0, 1, 2)
             };
 
+
+            _fingerBottomTransform =new Transform
+            {
+                Rotation = new float3(0, 0, 0),
+                Scale = new float3(1, 1, 1),
+                Translation = new float3(0, 1, -2)
+            };
 
             
 
@@ -110,7 +119,7 @@ namespace FuseeApp
                             _baseTransform,
 
                             // SHADER EFFECT COMPONENT
-                            MakeEffect.FromDiffuseSpecular((float4) ColorUint.LightGrey, float4.Zero),
+                            MakeEffect.FromDiffuseSpecular((float4) ColorUint.Black, float4.Zero),
 
                             // MESH COMPONENT
                             SimpleMeshes.CreateCuboid(new float3(10, 2, 10))
@@ -147,7 +156,7 @@ namespace FuseeApp
                                                 SimpleMeshes.CreateCuboid(new float3(2, 10, 2))
                                              }   
                                            
-                                            },
+                                            },// forearm
                                             new SceneNode 
                                             {
                                                 Components = 
@@ -156,7 +165,7 @@ namespace FuseeApp
                                                 },
 
                                                 Children = 
-                                                {
+                                                { 
                                                    new SceneNode
                                                    {
                                                         Components = 
@@ -192,7 +201,7 @@ namespace FuseeApp
                                                                                     Components = 
                                                                                     {
                                                                                         new Transform{Translation = new float3(0,1.5f,0)},
-                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.Yellow, float4.Zero),
+                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.White, float4.Zero),
                                                                                         SimpleMeshes.CreateCuboid(new float3(1, 4, 1))  
                                                                                     }
                                                                                 }   
@@ -212,7 +221,7 @@ namespace FuseeApp
                                                                                 Components =
                                                                                 {
                                                                                         new Transform{Translation = new float3(0,1.5f,0)},
-                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.Yellow, float4.Zero),
+                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.White, float4.Zero),
                                                                                         SimpleMeshes.CreateCuboid(new float3(1, 4, 1))  
                                                                                 }
                                                                             }
@@ -232,11 +241,33 @@ namespace FuseeApp
                                                                                 Components =
                                                                                 {
                                                                                         new Transform{Translation = new float3(0,1.5f,0)},
-                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.Yellow, float4.Zero),
+                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.White, float4.Zero),
                                                                                         SimpleMeshes.CreateCuboid(new float3(1, 4, 1))  
                                                                                 }
                                                                             }
                                                                         }
+
+                                                                     },
+                                                                     new SceneNode
+                                                                     {
+                                                                         Components=
+                                                                         {
+                                                                             _fingerBottomTransform,
+                                                                         },
+
+                                                                         Children= 
+                                                                         {
+                                                                             new SceneNode
+                                                                             {
+                                                                                 Components =
+                                                                                 {
+                                                                                       new Transform{Translation = new float3(0,1.5f,0)},
+                                                                                        MakeEffect.FromDiffuseSpecular((float4) ColorUint.White, float4.Zero),
+                                                                                        SimpleMeshes.CreateCuboid(new float3(1, 4, 1))  
+                                                                                 }
+                                                                             }
+                                                                         }
+
 
                                                                      }
                                                                 }
@@ -271,7 +302,7 @@ namespace FuseeApp
         public override void Init()
         {
             // Set the clear color for the backbuffer to white (100% intensity in all color channels R, G, B, A).
-            RC.ClearColor = new float4(0.8f, 0.9f, 0.7f, 1);
+            RC.ClearColor =new float4(((float4)ColorUint.DarkRed));
 
             _scene = CreateScene();
 
@@ -308,14 +339,15 @@ namespace FuseeApp
             
 
             winkel += (Keyboard.WSAxis * Time.DeltaTime);
-            if(winkel >= -0.75f && winkel <=1f){
+            if(winkel >= -0.5f && winkel <=0.7f){
              _fingerUpTransform.Rotation.x = winkel;
              _fingerLeftTransform.Rotation.z = -winkel;
             _fingerRightTransform.Rotation.z = winkel;
-            }else if(winkel < -0.75f) {
-                winkel = -0.75f;
-            }else if(winkel > 1f){
-                 winkel = 1f;
+            _fingerBottomTransform.Rotation.x = -winkel;
+            }else if(winkel < -0.5f) {
+                winkel = -0.5f;
+            }else if(winkel > 0.7f){
+                 winkel = 0.7f;
             }
 
             
