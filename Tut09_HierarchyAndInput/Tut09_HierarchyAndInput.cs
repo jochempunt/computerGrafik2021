@@ -322,6 +322,16 @@ namespace FuseeApp
             RC.View = float4x4.CreateTranslation(0, -10, 50) * float4x4.CreateRotationY(_camAngle);
 
 
+            //------------------------ INFO: -----------------------------
+            // hoch - runter : pfeiltasten updown
+            // links - rechts : pfeiltasten leftright
+            // öffnen schliesen : w - s tasten
+            //kamera drehen : mausklick + drag
+
+
+
+
+
             // base movement
 
             if(Mouse.LeftButton){
