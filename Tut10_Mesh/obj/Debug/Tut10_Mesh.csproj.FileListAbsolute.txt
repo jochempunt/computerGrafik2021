@@ -1,0 +1,9 @@
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\bin\Debug\Tut10_Mesh.deps.json
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\bin\Debug\Tut10_Mesh.dll
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\bin\Debug\Tut10_Mesh.pdb
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.csprojAssemblyReference.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.AssemblyInfoInputs.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.AssemblyInfo.cs
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.csproj.CoreCompileInputs.cache
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.dll
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut10_Mesh\obj\Debug\Tut10_Mesh.pdb
