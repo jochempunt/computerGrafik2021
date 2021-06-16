@@ -45,10 +45,10 @@ namespace FuseeApp
                             _baseTransform,
 
                             // SHADER EFFECT COMPONENT
-                            SimpleMeshes.MakeMaterial((float4) ColorUint.LightGrey),
+                            SimpleMeshes.MakeMaterial((float4) ColorUint.CadetBlue),
 
                             // MESH COMPONENT
-                            SimpleMeshes.CreateCylinder(5,10,6),
+                            SimpleMeshes.CreateCylinder(5,10,42),
                         }
                     },
                 }
@@ -62,8 +62,9 @@ namespace FuseeApp
             RC.ClearColor = new float4(0.8f, 0.9f, 0.7f, 1);
 
             _scene = CreateScene();
-
-            // Create a scene renderer holding the scene above
+            RC.SetRenderState(RenderState.CullMode, (uint)Cull.Clockwise);
+            //RC.SetRenderState(RenderState.FillMode ,(uint)FillMode.Wireframe);
+            //Create a scene renderer holding the scene above
             _sceneRenderer = new SceneRendererForward(_scene);
         }
 
@@ -72,7 +73,7 @@ namespace FuseeApp
         {
             SetProjectionAndViewport();
 
-            _baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
+            _baseTransform.Rotation = new float3(0, 0, 0);
 
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);

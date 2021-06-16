@@ -134,7 +134,7 @@ namespace FuseeApp
                 specularStrength: 1f);
         }
 
-        public static Mesh CreateCylinder(float radius, float height, int segments)
+        public static Mesh CreateCylinderBottom(float radius, float height, int segments)
         {
            float3[] verts = new float3[segments+1];
            float3[] norms = new float3[segments+1];
@@ -183,6 +183,106 @@ namespace FuseeApp
             //return CreateConeFrustum(radius, radius, height, segments);
         }
 
+
+
+         public static Mesh CreateCylinder(float radius, float height, int segments)
+        {
+
+
+            float delta = 2 * M.Pi / segments;
+
+            float3[] verts = new float3[segments*4 + 2];
+            float3[] norms = new float3[segments*4 +2];
+        	ushort[] tris = new ushort[segments*3 *4];
+
+
+
+            verts[0] = new float3(radius,height/2,0);
+            verts[1] = new float3(radius,height/2,0);
+            verts[2] = new float3(radius,-height/2,0);
+            verts[3] = new float3(radius,-height/2,0);
+
+            norms[0] = new float3(0,1,0);
+            norms[1] = new float3(1,0,0);
+            norms[2] = new float3(1,0,0);
+            norms[3] = new float3(0,-1,0);
+            
+
+            verts[segments*4] = new float3( 0,height/2,0);
+            verts[segments*4+1] = new float3( 0,-height/2,0);
+
+            norms[segments*4] = new float3( 0,1,0);
+            norms[segments*4+1] = new float3( 0,-1,0);
+           
+
+
+
+            for (int i = 1; i < segments; i++)
+            {
+                verts[i*4 + 0] =new float3(radius*M.Cos(delta*i), height/2,radius* M.Sin(delta*i)); //oben dach
+                verts[i*4 + 1] =new float3(radius*M.Cos(delta*i), height/2,radius* M.Sin(delta*i));//oben mantel
+                verts[i*4 + 2] =new float3(radius*M.Cos(delta*i), -height/2,radius* M.Sin(delta*i));//unten mantel
+                verts[i*4 + 3] =new float3(radius*M.Cos(delta*i), -height/2,radius* M.Sin(delta*i));//unten boden
+
+                norms[i*4 + 0] =new float3(0,1,0);
+                norms[i*4 + 1] =new float3(M.Cos(delta*i),0,M.Sin(delta*i));
+                norms[i*4 + 2] =new float3(M.Cos(delta*i),0,M.Sin(delta*i));
+                norms[i*4 + 3] =new float3(0,-1,0);  
+
+
+                   // top triangle
+                tris[12*(i-1) + 0] = (ushort)  (4*segments);       // top center point
+                tris[12*(i-1) + 1] = (ushort) (4*i+ 0);      // current top segment point
+                tris[12*(i-1) + 2] = (ushort) (4*(i-1) + 0);      // previous top segment point
+
+                // side triangle 1
+                tris[12*(i-1) + 3] = (ushort) (4*(i-1) + 2);      // previous lower shell point
+                tris[12*(i-1) + 4] = (ushort) (4*i+ 1);      // current lower shell point
+                tris[12*(i-1) + 5] = (ushort) (4*i+ 2);     // current top shell point
+
+                 // side triangle 2
+                tris[12*(i-1) + 6] = (ushort) (4*(i-1) + 2);      // previous lower shell point
+                tris[12*(i-1) + 7] = (ushort) (4*(i-1) + 1);       // current top shell point
+                tris[12*(i-1) + 8] = (ushort) (4*i+ 1);    // previous top shell point
+
+                // bottom triangle
+                tris[12*(i-1) + 9]  = (ushort) (4*segments+1);    // bottom center point
+                tris[12*(i-1) + 10] = (ushort) (4*(i-1) + 3);     // current bottom segment point
+                tris[12*(i-1) + 11] = (ushort) (4*i+ 3);     // previous bottom segment point
+
+
+            }
+            tris[12*segments-12] = (ushort)(4*segments);
+            tris[12*segments-11] = (ushort)(0);  
+            tris[12*segments-10] = (ushort)(4*segments-4);  
+
+            tris[12*segments-9] = (ushort)(4*segments-2);
+            tris[12*segments-8] = (ushort)(1);
+            tris[12*segments-7] = (ushort)(2);
+
+            tris[12*segments-6] = (ushort)(4*segments-2);
+            tris[12*segments-5] = (ushort)(4*segments-3);
+            tris[12*segments-4] = (ushort)(1);
+
+            tris[12*segments-3] = (ushort)(4*segments+1);
+            tris[12*segments-2] = (ushort)(4*segments-1);
+            tris[12*segments-1] = (ushort)(3);    
+
+          
+            return new Mesh
+            {
+               Vertices= verts,
+               Normals=norms,
+               Triangles= tris,
+            };
+
+            
+             
+        	
+
+
+
+        }
         public static Mesh CreateCone(float radius, float height, int segments)
         {
             return CreateConeFrustum(radius, 0.0f, height, segments);

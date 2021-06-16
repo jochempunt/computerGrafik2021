@@ -5467,11 +5467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\Tut10_Mesh.csproj",
+      "projectUniqueName": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\Tut10_Mesh.csproj",
       "projectName": "Tut10_Mesh",
-      "projectPath": "d:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\Tut10_Mesh.csproj",
+      "projectPath": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\Tut10_Mesh.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "d:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\obj\\",
+      "outputPath": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut10_Mesh\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5518,7 +5518,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }
