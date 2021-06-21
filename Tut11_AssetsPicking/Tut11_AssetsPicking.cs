@@ -21,42 +21,10 @@ namespace FuseeApp
     {
         private SceneContainer _scene;
         private SceneRendererForward _sceneRenderer;
-        private Transform _baseTransform;
+        private Transform _cone;
 
-
-        SceneContainer CreateScene()
-        {
-            // Initialize transform components that need to be changed inside "RenderAFrame"
-            _baseTransform = new Transform
-            {
-                Rotation = new float3(0, 0, 0),
-                Scale = new float3(1, 1, 1),
-                Translation = new float3(0, 0, 0)
-            };
-
-            // Setup the scene graph
-            return new SceneContainer
-            {
-                Children = new List<SceneNode>
-                {
-                    new SceneNode
-                    {
-                        Components = new List<SceneComponent>
-                        {
-                            // TRANSFROM COMPONENT
-                            _baseTransform,
-
-                            // SHADER EFFECT COMPONENT
-                            SimpleMeshes.MakeMaterial((float4) ColorUint.LightGrey),
-
-                            // MESH COMPONENT
-                            // SimpleAssetsPickinges.CreateCuboid(new float3(10, 10, 10))
-                            SimpleMeshes.CreateCuboid(new float3(10, 10, 10))
-                        }
-                    },
-                }
-            };
-        }
+        private ScenePicker _scenePick;
+       
 
 
         // Init is called on startup. 
@@ -64,11 +32,18 @@ namespace FuseeApp
         {
             RC.ClearColor = new float4(0.8f, 0.9f, 0.7f, 1);
 
-            _scene = CreateScene();
 
+        _scene = AssetStorage.Get<SceneContainer>("sheesh.fus");
+
+        _cone =   _scene.Children.FindNodes(node => node.Name == "Cone")?.FirstOrDefault()?.GetComponent<Transform>();
+            //_scene = CreateScene();
+        _cone.Scale = new float3(5,5,5);
             // Create a scene renderer holding the scene above
+            
             _sceneRenderer = new SceneRendererForward(_scene);
+            _scenePick = new ScenePicker(_scene);
         }
+
 
         // RenderAFrame is called once a frame
         // RenderAFrame is called once a frame
@@ -76,9 +51,23 @@ namespace FuseeApp
         {
             SetProjectionAndViewport();
 
-            _baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
-
+            //_baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
+            _cone.Rotation = new float3 ( M.MinAngle(TimeSinceStart),0,0);
             // Clear the backbuffer
+           
+           if(Mouse.LeftButton)
+           {
+            float2 pickPosClip = Mouse.Position * new float2(2.0f/Width, -2.0f/Height) + new float2(-1,1);
+            
+            PickResult newPick = _scenePick.Pick(RC,pickPosClip).OrderBy(pr => pr.ClipPos.z).FirstOrDefault();
+            if(newPick!=null)
+            {
+              Diagnostics.Debug(newPick.Node.Name);  
+            }
+           }
+          
+           
+           
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
 
             // Setup the camera 

@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut11_AssetsPicking\\Tut11_AssetsPicking.csproj": {}
+  },
+  "projects": {
+    "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut11_AssetsPicking\\Tut11_AssetsPicking.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut11_AssetsPicking\\Tut11_AssetsPicking.csproj",
+        "projectName": "Tut11_AssetsPicking",
+        "projectPath": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut11_AssetsPicking\\Tut11_AssetsPicking.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Study\\2021\\Computergrafik2\\computerGrafik2021\\Tut11_AssetsPicking\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Fusee.Desktop": {
+              "target": "Package",
+              "version": "[0.10.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
