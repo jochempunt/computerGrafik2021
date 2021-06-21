@@ -3,6 +3,7 @@ using Fusee.Base.Core;
 using Fusee.Engine.Common;
 using Fusee.Engine.Core;
 using Fusee.Engine.Core.Scene;
+using Fusee.Engine.Core.Effects;
 using Fusee.Math.Core;
 using Fusee.Serialization;
 using Fusee.Xene;
@@ -15,12 +16,13 @@ using System.Linq;
 
 namespace FuseeApp
 {
-    [FuseeApplication(Name = "Tut10_Mesh_ZYLINDER", Description = "ZYLINDER")]
-    public class Tut10_Mesh : RenderCanvas
+    [FuseeApplication(Name = "Tut11_AssetsPicking", Description = "Yet another FUSEE App.")]
+    public class Tut11_AssetsPicking : RenderCanvas
     {
         private SceneContainer _scene;
         private SceneRendererForward _sceneRenderer;
         private Transform _baseTransform;
+
 
         SceneContainer CreateScene()
         {
@@ -41,39 +43,40 @@ namespace FuseeApp
                     {
                         Components = new List<SceneComponent>
                         {
-                            // TRANSFORM COMPONENT
+                            // TRANSFROM COMPONENT
                             _baseTransform,
 
                             // SHADER EFFECT COMPONENT
-                            SimpleMeshes.MakeMaterial((float4) ColorUint.CadetBlue),
+                            SimpleMeshes.MakeMaterial((float4) ColorUint.LightGrey),
 
                             // MESH COMPONENT
-                            SimpleMeshes.CreateCylinder(7,10,100),
+                            // SimpleAssetsPickinges.CreateCuboid(new float3(10, 10, 10))
+                            SimpleMeshes.CreateCuboid(new float3(10, 10, 10))
                         }
                     },
                 }
             };
         }
 
+
         // Init is called on startup. 
         public override void Init()
         {
-            // Set the clear color for the backbuffer to white (100% intensity in all color channels R, G, B, A).
             RC.ClearColor = new float4(0.8f, 0.9f, 0.7f, 1);
 
             _scene = CreateScene();
-            RC.SetRenderState(RenderState.CullMode, (uint)Cull.Clockwise);
-            //RC.SetRenderState(RenderState.FillMode ,(uint)FillMode.Wireframe);
-            //Create a scene renderer holding the scene above
+
+            // Create a scene renderer holding the scene above
             _sceneRenderer = new SceneRendererForward(_scene);
         }
 
+        // RenderAFrame is called once a frame
         // RenderAFrame is called once a frame
         public override void RenderAFrame()
         {
             SetProjectionAndViewport();
 
-            _baseTransform.Rotation.y= M.Sin(TimeSinceStart);
+            _baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
 
             // Clear the backbuffer
             RC.Clear(ClearFlags.Color | ClearFlags.Depth);
@@ -101,6 +104,6 @@ namespace FuseeApp
             // Back clipping happens at 2000 (Anything further away from the camera than 2000 world units gets clipped, polygons will be cut)
             var projection = float4x4.CreatePerspectiveFieldOfView(M.PiOver4, aspectRatio, 1, 20000);
             RC.Projection = projection;
-        }        
+        }                
     }
 }
