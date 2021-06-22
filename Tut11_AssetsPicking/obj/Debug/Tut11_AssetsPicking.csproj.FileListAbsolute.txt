@@ -1,4 +1,7 @@
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\0hynugbsc2m21.jpg
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\CubeCar.fus
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\sheesh.fus
+D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\tank.fus
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Tut11_AssetsPicking.deps.json
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Tut11_AssetsPicking.dll
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Tut11_AssetsPicking.pdb
@@ -8,5 +11,3 @@ D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\obj\Debug\T
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\obj\Debug\Tut11_AssetsPicking.csproj.CoreCompileInputs.cache
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\obj\Debug\Tut11_AssetsPicking.dll
 D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\obj\Debug\Tut11_AssetsPicking.pdb
-D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\0hynugbsc2m21.jpg
-D:\Study\2021\Computergrafik2\computerGrafik2021\Tut11_AssetsPicking\bin\Debug\Assets\sheesh.fus

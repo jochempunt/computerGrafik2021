@@ -21,9 +21,19 @@ namespace FuseeApp
     {
         private SceneContainer _scene;
         private SceneRendererForward _sceneRenderer;
-        private Transform _cone;
+        private Transform _backLeftTransform;
+        private Transform _backRightTransform ;
+        private Transform _frontLeftTransform; 
+    
+        private Transform _frontRightTransform;
 
-        private ScenePicker _scenePick;
+        private ScenePicker _scenePicker;
+
+        private PickResult  _currentPick;
+
+        private float4 _oldColor;
+
+        private float _winkelX = 1.7f;
        
 
 
@@ -33,15 +43,18 @@ namespace FuseeApp
             RC.ClearColor = new float4(0.8f, 0.9f, 0.7f, 1);
 
 
-        _scene = AssetStorage.Get<SceneContainer>("sheesh.fus");
+        _scene = AssetStorage.Get<SceneContainer>("tank.fus");
 
-        _cone =   _scene.Children.FindNodes(node => node.Name == "Cone")?.FirstOrDefault()?.GetComponent<Transform>();
+        _backLeftTransform =   _scene.Children.FindNodes(node => node.Name == "backwheelLeft")?.FirstOrDefault()?.GetComponent<Transform>();
+        _backRightTransform =  _scene.Children.FindNodes(node => node.Name == "backwheelRight")?.FirstOrDefault()?.GetComponent<Transform>() ;
+        _frontLeftTransform =  _scene.Children.FindNodes(node => node.Name == "frontwheelLeft")?.FirstOrDefault()?.GetComponent<Transform>() ;
+        _frontRightTransform = _scene.Children.FindNodes(node => node.Name == "frontwheelRight")?.FirstOrDefault()?.GetComponent<Transform>();
             //_scene = CreateScene();
-        _cone.Scale = new float3(5,5,5);
+        
             // Create a scene renderer holding the scene above
             
             _sceneRenderer = new SceneRendererForward(_scene);
-            _scenePick = new ScenePicker(_scene);
+            _scenePicker = new ScenePicker(_scene);
         }
 
 
@@ -50,28 +63,85 @@ namespace FuseeApp
         public override void RenderAFrame()
         {
             SetProjectionAndViewport();
-
+            RC.View = float4x4.CreateTranslation(0, 0, 4) * float4x4.CreateRotationX(-(float) Math.Atan(30.0 / 40.0));
             //_baseTransform.Rotation = new float3(0, M.MinAngle(TimeSinceStart), 0);
-            _cone.Rotation = new float3 ( M.MinAngle(TimeSinceStart),0,0);
+           
+            _backRightTransform.Rotation = _backLeftTransform.Rotation;
+            _frontLeftTransform.Rotation=  _backLeftTransform.Rotation;
+            _frontRightTransform.Rotation= _backLeftTransform.Rotation;
             // Clear the backbuffer
+           RC.Clear(ClearFlags.Color | ClearFlags.Depth);
            
-           if(Mouse.LeftButton)
-           {
-            float2 pickPosClip = Mouse.Position * new float2(2.0f/Width, -2.0f/Height) + new float2(-1,1);
-            
-            PickResult newPick = _scenePick.Pick(RC,pickPosClip).OrderBy(pr => pr.ClipPos.z).FirstOrDefault();
-            if(newPick!=null)
+          if (Mouse.LeftButton)
             {
-              Diagnostics.Debug(newPick.Node.Name);  
+                float2 pickPosClip = Mouse.Position * new float2(2.0f / Width, -2.0f / Height) + new float2(-1, 1);
+               
+                PickResult newPick = _scenePicker.Pick(RC, pickPosClip).OrderBy(pr => pr.ClipPos.z).FirstOrDefault();
+
+                if (newPick?.Node != _currentPick?.Node)
+                {
+                    if (_currentPick != null)
+                    {
+                        var ef = _currentPick.Node.GetComponent<DefaultSurfaceEffect>();
+                        ef.SurfaceInput.Albedo = _oldColor;
+
+                     
+
+
+                    }
+                    if (newPick != null)
+                    {
+                        var ef = newPick.Node.GetComponent<SurfaceEffect>();
+                        _oldColor = ef.SurfaceInput.Albedo;
+                        ef.SurfaceInput.Albedo = (float4) ColorUint.LimeGreen;
+                    }
+                    _currentPick = newPick;
+                     
+                }
+
+
+
+
+               
             }
-           }
           
-           
-           
-            RC.Clear(ClearFlags.Color | ClearFlags.Depth);
+            if (_currentPick != null){
+                Transform currentTransform = _currentPick.Node.GetTransform();
+                    switch (_currentPick.Node.Name)
+                    {
+                        case "kuppel":
+                        currentTransform.Rotation =  currentTransform.Rotation + new float3(0,Keyboard.ADAxis * DeltaTime * 5,0);
+                        break;
+                        case "canon":
+                        _winkelX += Keyboard.WSAxis * DeltaTime ;
+                        Diagnostics.Debug(_winkelX);
+                        if(_winkelX>1f && _winkelX < 1.7f){
+                             currentTransform.Rotation =   new float3(_winkelX,0,0);
+                        }else if(_winkelX<=1f){
+                            _winkelX = 1f;
+                        }else if(_winkelX >=1.7f){
+                             _winkelX = 1.7f;
+                        }
+                       
+                        break;
+    	                case "chassis":
+                        break;
+
+                        default:
+                        _backLeftTransform.Rotation = currentTransform.Rotation + new float3(Keyboard.WSAxis * DeltaTime * 3f,0,0);
+                        break;
+                    }
+                    
+
+            }
+                    
+                
+         
+          
+            
 
             // Setup the camera 
-            RC.View = float4x4.CreateTranslation(0, 0, 40) * float4x4.CreateRotationX(-(float) Math.Atan(15.0 / 40.0));
+         
 
             // Render the scene on the current render context
             _sceneRenderer.Render(RC);
@@ -82,7 +152,6 @@ namespace FuseeApp
 
         public void SetProjectionAndViewport()
         {
-            // Set the rendering area to the entire window size
             RC.Viewport(0, 0, Width, Height);
 
             // Create a new projection matrix generating undistorted images on the new aspect ratio.
